@@ -1,0 +1,30 @@
+
+project.ext.pomConfig = {
+    licenses {
+        license {
+            name "MIT License"
+            url "http://opensource.org/licenses/MIT"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "mrasterisco"
+            name "MrAsterisco"
+            organization "MrAsterisco"
+            organizationUrl "mrasterisco.github.io"
+        }
+    }
+
+    scm {
+        url vcs
+    }
+}
+
+project.ext.configureMavenCentralMetadata = { pom ->
+    def root = asNode()
+    root.appendNode('name', project.name)
+    root.appendNode('description', project.description)
+    root.appendNode('url', project.vcs)
+    root.children().last() + pomConfig
+}
