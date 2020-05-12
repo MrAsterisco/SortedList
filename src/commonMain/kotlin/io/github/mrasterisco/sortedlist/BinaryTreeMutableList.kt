@@ -34,9 +34,7 @@ class BinaryTreeMutableList<T>(comparator: Comparator<T>, vararg elements: T) : 
 
     override fun isEmpty(): Boolean = tree.root == null
 
-    override fun lastIndexOf(element: T): Int {
-        throw UnsupportedOperationException()
-    }
+    override fun lastIndexOf(element: T): Int = throw UnsupportedOperationException()
 
     override fun add(index: Int, element: T) =
         throw UnsupportedOperationException("Adding an item to a specific index may break sorting. Use `add(element:)`.")
@@ -93,6 +91,21 @@ class BinaryTreeMutableList<T>(comparator: Comparator<T>, vararg elements: T) : 
 
     override fun toString(): String {
         return "[${tree.joinToString(", ") { it.toString() }}]"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as BinaryTreeMutableList<*>
+
+        if (tree != other.tree) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return tree.hashCode()
     }
 
 }

@@ -4,6 +4,7 @@ import io.github.mrasterisco.sortedlist.*
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class SortedListTest {
@@ -105,7 +106,7 @@ class SortedListTest {
     fun sortingIsCorrect() {
         val numbers = (1..1000).map { Random.nextInt(10_000_000) }
         val tree = sortedMutableListOf<Int>().apply {
-            for(num in numbers) add(num)
+            for (num in numbers) add(num)
         }
 
         assertCollectionEquals(tree, numbers.sorted())
@@ -125,6 +126,28 @@ class SortedListTest {
         val mutableList = numbers.toSortedMutableList()
 
         assertCollectionEquals(listOf(1, 2, 29, 34), mutableList)
+    }
+
+    @Test
+    fun checkEquals() {
+        val list1 = sortedListOf(3, 5, 6)
+        val list2 = sortedListOf(5, 6, 3)
+
+        assertEquals(list1, list2)
+
+        val list3 = sortedListOf(9, 8, 2)
+        assertNotEquals(list1, list3)
+    }
+
+    @Test
+    fun checkHashCode() {
+        val list1 = sortedListOf(22, 12, 34)
+        val list2 = sortedListOf(12, 34, 22)
+
+        assertEquals(list1.hashCode(), list2.hashCode())
+
+        val list3 = sortedListOf(9, 11, 2)
+        assertNotEquals(list1, list3)
     }
 
 }

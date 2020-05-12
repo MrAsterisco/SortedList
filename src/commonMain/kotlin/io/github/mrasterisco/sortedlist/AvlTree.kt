@@ -146,6 +146,47 @@ class AvlTree<T>(
         return rightNode
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+        if (other !is AvlTree<*>) {
+            return false
+        }
+        return areTreesEqual(this.root, other.root)
+    }
+
+    private fun areTreesEqual(
+        root1: BinaryTree.Node<*>?,
+        root2: BinaryTree.Node<*>?
+    ): Boolean {
+        if (root1 === root2) {
+            return true
+        }
+        return if (root1 == null || root2 == null) {
+            false
+        } else
+            root1.elements == root2.elements &&
+                    areTreesEqual(root1.left, root2.left) &&
+                    areTreesEqual(root1.right, root2.right)
+    }
+
+    override fun hashCode(): Int {
+        if (root == null) {
+            return 0
+        }
+        val nodes = mutableListOf<BinaryTree.Node<*>>()
+        avlRoot?.let { nodes.add(it) }
+        var res = 17
+        while (nodes.isNotEmpty()) {
+            val head: BinaryTree.Node<*> = nodes.removeAt(0)
+            res = 31 * res + head.hashCode()
+            head.left?.let { nodes.add(it) }
+            head.right?.let { nodes.add(it) }
+        }
+        return res
+    }
+
     private class AvlTreeNode<T>(value: T) : BinaryTree.Node<T> {
         var listOfElement: MutableList<T> = mutableListOf(value)
         var leftChild: AvlTreeNode<T>? = null
@@ -155,7 +196,6 @@ class AvlTree<T>(
 
         override val elements: List<T>
             get() = listOfElement
-
 
         override val left: BinaryTree.Node<T>?
             get() = leftChild
@@ -170,8 +210,29 @@ class AvlTree<T>(
             numberOfElementInSubtree = listOfElement.size + numInRight + numInLeft
         }
 
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other == null || this::class != other::class) return false
+
+            other as AvlTreeNode<*>
+
+            if (listOfElement != other.listOfElement) return false
+            if (leftChild != other.leftChild) return false
+            if (rightChild != other.rightChild) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = listOfElement.hashCode()
+            result = 31 * result + (leftChild?.hashCode() ?: 0)
+            result = 31 * result + (rightChild?.hashCode() ?: 0)
+            return result
+        }
+
         val balance: Int
             get() { return (rightChild?.height ?: 0) - (leftChild?.height ?: 0) }
+
     }
 
     override fun iterator(): Iterator<T> = BinaryTreeIterator(this)
