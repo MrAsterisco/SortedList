@@ -1,7 +1,6 @@
 package sortedlist
 
-import io.github.mrasterisco.sortedlist.SortedMutableList
-import io.github.mrasterisco.sortedlist.sortedMutableListOf
+import io.github.mrasterisco.sortedlist.*
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -111,4 +110,21 @@ class SortedListTest {
 
         assertCollectionEquals(tree, numbers.sorted())
     }
+
+    @Test
+    fun checkToSortedList() {
+        val numbers = listOf(1, 6, 22, 5)
+        val list = numbers.toSortedList()
+
+        assertCollectionEquals(listOf(1, 5, 6, 22), list)
+    }
+
+    @Test
+    fun checkToSortedMutableList() {
+        val numbers = mutableListOf(34, 2, 1, 29)
+        val mutableList = numbers.toSortedMutableList()
+
+        assertCollectionEquals(listOf(1, 2, 29, 34), mutableList)
+    }
+
 }
