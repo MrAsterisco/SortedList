@@ -87,12 +87,12 @@ dependencies {
 
 The library uses only Kotlin common code and does not provide explicit implementations for any platform, hence it should work out-of-the-box everywhere. See the table below for further details:
 
-|                      |      iOS     |    macOS    |     JVM     |                nodeJS                |  browserJS  | Windows | Linux |
-|:--------------------:|:------------:|:-----------:|:-----------:|:------------------------------------:|:-----------:|:-------:|:-----:|
-|  Built using Gradle  |      YES     |     YES     |     YES     |                  YES                 |     YES     |    NO   |   NO  |
-|      Unit Tests      |  YES, passed | YES, passed | YES, passed | YES, failed due to bad configuration | YES, passed |    NO   |   NO  |
-| Published to Bintray | YES, -native | YES, -macos |  YES, -jvm  |               YES, -js               |   YES, -js  |    NO   |   NO  |
-|  Used in Production  |      YES     |      NO     |     YES     |                  NO                  |      NO     |    NO   |   NO  |
+|                      |      iOS     |    macOS    |     JVM     |  nodeJS  | browserJS | Windows |  Linux  |
+|:--------------------:|:------------:|:-----------:|:-----------:|:--------:|:---------:|:-------:|:-------:|
+|  Built using Gradle  |      YES     |     YES     |     YES     |    YES   |    YES    |    NO   |    NO   |
+|      Unit Tests      |  YES, passed | YES, passed | YES, passed |  Not run |  Not run  | Not run | Not run |
+| Published to Bintray | YES, -native | YES, -macos |  YES        | YES, -js |  YES, -js |    NO   |    NO   |
+|  Used in Production  |      YES     |      NO     |     YES     |    NO    |     NO    |    NO   |    NO   |
 
 ## Contributing
 All contributions to expand the library are welcome. Fork the repo, make the changes you want, and open a Pull Request.
