@@ -21,65 +21,31 @@ listOf(5, 4, 6, 2).toSortedList()
 ```
 
 ## Installation
-Add the repository to your `build.gradle`:
+Add the GitHub registry to your `build.gradle`:
 
-```groovy
+```kotlin
 allprojects {
  repositories {
-    maven { url "https://dl.bintray.com/mrasterisco/Maven" }
+     maven {
+         url = uri("https://maven.pkg.github.com/mrasterisco/sortedlist")
+         credentials {
+             username = <YOUR GITHUB USERNAME>
+             password = <YOUR GITHUB PERSONAL ACCESS TOKEN>
+         }
+     }
  }
 }
 ```
 
-Add the dependency to your `build.gradle`:
+GitHub doesn't support accessing packages without authentication ([more info](https://github.community/t/download-from-github-package-registry-without-authentication/14407/96)). You can generate a personal access token for your account [here](https://github.com/settings/tokens).
 
-```groovy
-dependencies {
-    implementation "io.github.mrasterisco:SortedList-<target>:<version>"
-}
-```
-
-SortedList targets follow the same naming convention used by KotlinX Serialization and other KotlinX libraries. See below for further details.
-
-#### Common
-To include the library into a Kotlin common module, use:
-
-```groovy
-dependencies {
-    implementation "io.github.mrasterisco:SortedList-common:<version>"
-}
-```
-
-#### JVM
-To include the library into a JVM module (including Android), use:
-
-```groovy
-dependencies {
-    implementation "io.github.mrasterisco:SortedList:<version>"
-}
-```
-
-#### Native
-To include the library into a Native module, use:
-
-```groovy
-dependencies {
-    implementation "io.github.mrasterisco:SortedList-native:<version>"
-}
-```
-
-If you're including the library into a target that builds for multiple architectures, make sure to put the following into your `settings.gradle` file.
+Since version 1.3.0, SortedList can be imported as dependency by just referencing it in the `commonMain` module:
 
 ```kotlin
-enableFeaturePreview("GRADLE_METADATA")
-```
-
-#### JS
-To include the library into your JavaScript module, use:
-
-```groovy
-dependencies {
-    implementation "io.github.mrasterisco:SortedList-js:<version>"
+val commonMain by getting {
+    dependencies {
+        implementation("io.github.mrasterisco:sortedlist:<version>")
+    }
 }
 ```
 
@@ -89,9 +55,9 @@ The library uses only Kotlin common code and does not provide explicit implement
 
 |                      |      iOS     |    macOS    |     JVM     |  nodeJS  | browserJS | Windows |  Linux  |
 |:--------------------:|:------------:|:-----------:|:-----------:|:--------:|:---------:|:-------:|:-------:|
-|  Built using Gradle  |      YES     |     YES     |     YES     |    YES   |    YES    |    NO   |    NO   |
+|  Built using Gradle  |      YES     |     YES     |     YES     |    Removed in 1.3.0   |    Removed in 1.3.0    |    NO   |    NO   |
 |      Unit Tests      |  YES, passed | YES, passed | YES, passed |  Not run |  Not run  | Not run | Not run |
-| Published to Bintray | YES, -native | YES, -macos |  YES        | YES, -js |  YES, -js |    NO   |    NO   |
+| Published to GitHub Packages | YES, -native | YES, -macos |  YES        | NO |  NO |    NO   |    NO   |
 |  Used in Production  |      YES     |      NO     |     YES     |    NO    |     NO    |    NO   |    NO   |
 
 ## Contributing
