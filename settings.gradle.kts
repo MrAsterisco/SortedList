@@ -1,2 +1,1 @@
-rootProject.name = "SortedList"
-enableFeaturePreview("GRADLE_METADATA")
+rootProject.name = "sortedlist"
