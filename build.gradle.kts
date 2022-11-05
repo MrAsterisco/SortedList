@@ -11,7 +11,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version ("1.5.21")
+    kotlin("multiplatform") version ("1.7.20")
     id("maven-publish")
 }
 
@@ -27,6 +27,7 @@ kotlin {
     targets {
         jvm()
         ios()
+        iosSimulatorArm64()
         watchos()
         macosX64("macos")
     }
@@ -59,6 +60,9 @@ kotlin {
         val macosTest by getting { }
         val iosMain by getting { }
         val iosTest by getting { }
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
     }
 
     plugins.withId("maven-publish") {
